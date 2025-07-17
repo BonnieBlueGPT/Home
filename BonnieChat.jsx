@@ -58,9 +58,9 @@ export default function BonnieChat() {
       if (messages.length === 0 && !hasFiredIdleMessage) {
         const idleFlirty = [
           "Still deciding what to say? 😘",
-          "Don’t leave me hanging…",
+          "Don't leave me hanging…",
           "You can talk to me, you know 💋",
-          "Don’t make me beg for your attention 😉"
+          "Don't make me beg for your attention 😉"
         ];
         const idleDelay = Math.random() * 3000 + 2000;
         setTimeout(() => {
@@ -101,6 +101,7 @@ export default function BonnieChat() {
     } catch {
       simulateBonnieTyping("Oops… Bonnie had a moment 💔");
     }
+    setBusy(false);
   }
 
   function simulateBonnieTyping(raw) {
@@ -167,31 +168,97 @@ export default function BonnieChat() {
   return (
     <div style={{ fontFamily: 'Segoe UI', height: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', padding: 8 }}>
-        <img src="https://static.wixstatic.com/media/6f5121_df2de6be1e444b0cb2df5d4bd9d49b21~mv2.png" style={{ width: 56, height: 56, borderRadius: 28, marginRight: 12, border: '2px solid #e91e63' }} alt="Bonnie" />
+        <img 
+          src="https://static.wixstatic.com/media/6f5121_df2de6be1e444b0cb2df5d4bd9d49b21~mv2.png" 
+          style={{ width: 56, height: 56, borderRadius: 28, marginRight: 12, border: '2px solid #e91e63' }} 
+          alt="Bonnie" 
+        />
         <div>
           <div style={{ color: '#e91e63', fontSize: 20, fontWeight: 600 }}>Bonnie Blue</div>
           <div style={{ color: '#555', fontSize: 14 }}>Flirty. Fun. Dangerously charming.</div>
-          <a href="https://x.com/trainmybonnie" target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: '#e91e63', textDecoration: 'none' }}>💋 Follow me on X</a>
+          <a 
+            href="https://x.com/trainmybonnie" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style={{ fontSize: 12, color: '#e91e63', textDecoration: 'none' }}
+          >
+            💋 Follow me on X
+          </a>
         </div>
-        <div style={{ marginLeft: 'auto', fontWeight: 500, color: online ? '#28a745' : '#aaa', display: 'flex', alignItems: 'center', gap: '4px' }}>
-          {online ? (<><span style={{ animation: 'pulseHeart 1.2s infinite' }}>💚</span><span>Online</span></>) : '💤 Offline'}
+        <div style={{ 
+          marginLeft: 'auto', 
+          fontWeight: 500, 
+          color: online ? '#28a745' : '#aaa', 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '4px' 
+        }}>
+          {online ? (
+            <>
+              <span style={{ animation: 'pulseHeart 1.2s infinite' }}>💚</span>
+              <span>Online</span>
+            </>
+          ) : (
+            '💤 Offline'
+          )}
         </div>
       </div>
 
       <div style={{ flex: 1, overflowY: 'auto', padding: 12, display: 'flex', flexDirection: 'column' }}>
         {messages.map((m, i) => (
-          <div key={i} style={{
-            maxWidth: '75%', padding: 8, borderRadius: 12, margin: '6px 0', fontSize: 14, lineHeight: 1.4,
-            ...(m.sender === 'user'
-              ? { background: 'linear-gradient(135deg,#ff83a0,#e91e63)', color: '#fff', alignSelf: 'flex-end', marginLeft: 'auto' }
-              : { background: '#fff0f6', border: '1px solid #ffe6f0', color: '#333', alignSelf: 'flex-start' })
-          }}>{m.text}</div>
+          <div 
+            key={i} 
+            style={{
+              maxWidth: '75%', 
+              padding: 8, 
+              borderRadius: 12, 
+              margin: '6px 0', 
+              fontSize: 14, 
+              lineHeight: 1.4,
+              ...(m.sender === 'user'
+                ? { 
+                    background: 'linear-gradient(135deg,#ff83a0,#e91e63)', 
+                    color: '#fff', 
+                    alignSelf: 'flex-end', 
+                    marginLeft: 'auto' 
+                  }
+                : { 
+                    background: '#fff0f6', 
+                    border: '1px solid #ffe6f0', 
+                    color: '#333', 
+                    alignSelf: 'flex-start' 
+                  })
+            }}
+          >
+            {m.text}
+          </div>
         ))}
         {typing && online && (
           <div style={{ display: 'flex', gap: 4, margin: '8px 0' }}>
-            <div style={{ width: 8, height: 8, borderRadius: 4, background: '#e91e63', animation: 'bounce 1s infinite ease-in-out', animationDelay: '0s' }} />
-            <div style={{ width: 8, height: 8, borderRadius: 4, background: '#e91e63', animation: 'bounce 1s infinite ease-in-out', animationDelay: '0.2s' }} />
-            <div style={{ width: 8, height: 8, borderRadius: 4, background: '#e91e63', animation: 'bounce 1s infinite ease-in-out', animationDelay: '0.4s' }} />
+            <div style={{ 
+              width: 8, 
+              height: 8, 
+              borderRadius: 4, 
+              background: '#e91e63', 
+              animation: 'bounce 1s infinite ease-in-out', 
+              animationDelay: '0s' 
+            }} />
+            <div style={{ 
+              width: 8, 
+              height: 8, 
+              borderRadius: 4, 
+              background: '#e91e63', 
+              animation: 'bounce 1s infinite ease-in-out', 
+              animationDelay: '0.2s' 
+            }} />
+            <div style={{ 
+              width: 8, 
+              height: 8, 
+              borderRadius: 4, 
+              background: '#e91e63', 
+              animation: 'bounce 1s infinite ease-in-out', 
+              animationDelay: '0.4s' 
+            }} />
           </div>
         )}
         <div ref={endRef} />
@@ -207,9 +274,18 @@ export default function BonnieChat() {
           onKeyDown={e => e.key === 'Enter' && send(input)}
         />
         <button
-          style={{ padding: '0 16px', borderRadius: 30, background: '#e91e63', color: '#fff', border: 'none', fontSize: 16, cursor: 'pointer' }}
+          style={{ 
+            padding: '0 16px', 
+            borderRadius: 30, 
+            background: '#e91e63', 
+            color: '#fff', 
+            border: 'none', 
+            fontSize: 16, 
+            cursor: 'pointer' 
+          }}
           disabled={busy || !input.trim()}
-          onClick={() => send(input)}>
+          onClick={() => send(input)}
+        >
           Send
         </button>
       </div>
